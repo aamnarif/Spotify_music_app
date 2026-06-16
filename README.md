@@ -1,4 +1,4 @@
-# ♫ Solace — Spotify Music Analytics Dashboard
+## Solace — Spotify Music Analytics Dashboard
 ### DSA8045 Applied Analytics | Assignment 1 | Group 3
 
 ---
