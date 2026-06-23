@@ -38,18 +38,31 @@ install.packages(c("shiny", "shinydashboard", "ggplot2", "dplyr"))
 Developed and tested on R 4.x. No additional system dependencies required.
 
 ---
-
+ 
 ## File Structure
-
+ 
 ```
-/
-├── app.R               # Main Shiny application
-├── Group3_music.csv    # Spotify dataset (must be in same folder as app.R)
-└── README.md           # This file
+📁 Group3_Spotify_Dashboard/
+│
+├── app.R                   → Entry point — just launches the app (4 lines)
+├── global.R                → Packages, data loading, shared variables
+│
+├── 📁 R/
+│   ├── theme.R             → Colour palette + shared ggplot2 theme
+│   ├── ui.R                → Assembles full dashboard UI from modules
+│   ├── server.R            → Main server — calls each module server
+│   ├── mod_overview.R      → Tab 1: Overview (UI + server)
+│   ├── mod_audio.R         → Tab 2: Audio Features (UI + server)
+│   ├── mod_popularity.R    → Tab 3: Popularity (UI + server)
+│   └── mod_conclusions.R   → Tab 4: Conclusions (UI only)
+│
+├── 📁 data/
+│   └── Group3_music.csv    → Dataset: 700 tracks, 20 variables, 114 genres
+│
+└── 📁 www/
+    └── custom.css          → Extra custom CSS styles
 ```
-
-> Both `app.R` and `Group3_music.csv` **must be in the same folder** for the app to run.
-
+ 
 ---
 
 ## How to Run
