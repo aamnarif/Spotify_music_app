@@ -1,29 +1,61 @@
 # ============================================================
-# R/theme.R – Colour Palette & Shared ggplot2 Theme
-# DSA8045 – Applied Analytics | Group 3 – Spotify Dashboard
+# R/theme.R – App colour themes and ggplot2 base theme
 # ============================================================
 
-# ── Colour Palette (colourblind-friendly) ─────────────────────
-SPOTIFY_GREEN <- "#1DB954"
-ACCENT1       <- "#2196F3"
-ACCENT2       <- "#FF9800"
-ACCENT3       <- "#E91E63"
-PANEL_BG      <- "#F8F9FA"
+make_theme <- function(dark = TRUE) {
+  if (dark) list(
+    plot_bg   = "#1A1A1A", grid = "#2A2A2A",
+    text      = "#FFFFFF", text2 = "#AAAAAA", axis_text = "#AAAAAA",
+    surface2  = "#242424"
+  ) else list(
+    plot_bg   = "#FFFFFF", grid = "#EEEEEE",
+    text      = "#0F0F0F", text2 = "#555555", axis_text = "#555555",
+    surface2  = "#F0F0F0"
+  )
+}
 
-# ── Shared ggplot2 Theme ──────────────────────────────────────
-spotify_theme <- function() {
-  theme_minimal(base_size = 13) +
+gg_theme <- function(t,
+                     axis_x_angle = 0,
+                     axis_x_hjust = 0.5,
+                     axis_x_size  = 9,
+                     axis_y_size  = 9,
+                     no_grid      = FALSE,
+                     legend_key_h = NULL,
+                     hide_axes    = FALSE,
+                     left_margin  = 16) {
+
+  ax_text  <- if (hide_axes) element_blank() else element_text(colour = t$axis_text, size = 9)
+  ax_textx <- if (hide_axes) element_blank() else element_text(colour = t$axis_text,
+                                                               size  = axis_x_size,
+                                                               angle = axis_x_angle,
+                                                               hjust = axis_x_hjust)
+  ax_texty <- if (hide_axes) element_blank() else element_text(colour = t$axis_text, size = axis_y_size)
+  ax_title <- if (hide_axes) element_blank() else element_text(colour = t$text2, face = "bold", size = 10)
+  ax_ticks <- if (hide_axes) element_blank() else element_line()
+
+  base <- theme_minimal(base_size = 12) +
     theme(
-      plot.title       = element_text(face = "bold", size = 15, colour = "#212121"),
-      plot.subtitle    = element_text(size = 11, colour = "#616161"),
-      axis.title       = element_text(face = "bold", size = 11),
-      axis.text        = element_text(size = 10),
-      legend.title     = element_text(face = "bold", size = 10),
-      legend.text      = element_text(size = 9),
-      panel.grid.major = element_line(colour = "#E0E0E0"),
-      panel.grid.minor = element_blank(),
-      plot.background  = element_rect(fill = PANEL_BG, colour = NA),
-      panel.background = element_rect(fill = "white",  colour = NA),
-      plot.margin      = margin(15, 15, 15, 15)
+      plot.background   = element_rect(fill = t$plot_bg, colour = NA),
+      panel.background  = element_rect(fill = t$plot_bg, colour = NA),
+      panel.grid.major  = if (no_grid) element_blank()
+                          else element_line(colour = t$grid, linewidth = 0.4),
+      panel.grid.minor  = element_blank(),
+      plot.title        = element_text(colour = t$text,  face = "bold", size = 14),
+      plot.subtitle     = element_text(colour = t$text2, size = 10),
+      axis.title        = ax_title,
+      axis.text         = ax_text,
+      axis.text.x       = ax_textx,
+      axis.text.y       = ax_texty,
+      axis.ticks        = ax_ticks,
+      legend.background = element_rect(fill = t$plot_bg, colour = NA),
+      legend.text       = element_text(colour = t$text2, size = 9),
+      legend.title      = element_text(colour = t$text,  face = "bold", size = 9),
+      plot.margin       = margin(16, 16, 16, left_margin),
+      strip.text        = element_text(colour = t$text, face = "bold")
     )
+
+  if (!is.null(legend_key_h))
+    base <- base + theme(legend.key.height = unit(legend_key_h, "cm"))
+
+  base
 }
