@@ -11,7 +11,6 @@ library(dplyr)
 source("R/data_loader.R")
 source("R/theme.R")
 source("R/helpers.R")
-source("R/css.R")
 
 # ── Source tab UI definitions ─────────────────────────────
 source("R/tabs/overview_tab.R")

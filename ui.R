@@ -7,45 +7,169 @@ ui <- dashboardPage(
 
   # ── Header ─────────────────────────────────────────────
   dashboardHeader(
-    title = tags$span(
-      class = "logo-text",
-      tags$span(class = "logo-red", "♫ "), "Solace"
+  title = tags$div(
+    class = "logo-container",
+
+    tags$img(
+      src = "spotify-logo.svg",
+      class = "app-logo"
     ),
-    titleWidth = 240,
-    tags$li(class = "dropdown",
-      tags$div(
-        style = "display:flex; align-items:center; height:50px; padding-right:16px;",
-        actionButton("toggle_mode", "☀ Light Mode", class = "toggle-btn")
-      )
+
+    tags$div(
+      class = "logo-text-stack",
+      tags$span(class = "logo-title", "Solace"),
+      tags$span(class = "logo-sub", "Music Analytics")
     )
   ),
 
+    titleWidth = 280,
+
+    # Search Bar
+    tags$li(
+      class = "dropdown header-search-li",
+      tags$div(
+        class = "header-search",
+        tags$span(class = "header-search-icon", "🔎"),
+        tags$input(
+          type = "text",
+          class = "header-search-input",
+          placeholder = "Search tracks, genres, or styles..."
+        )
+      )
+    ),
+
+    # Generate Music Button
+    tags$li(
+      class = "dropdown",
+      actionButton(
+        "generate_music",
+        label = HTML("Generate Music"),
+        class = "generate-btn"
+      )
+    ),
+
+    # Right Side Actions
+    tags$li(
+      class = "dropdown header-actions-li",
+      tags$div(
+        class = "header-actions",
+
+        actionButton(
+          "toggle_mode",
+          label = "☾",
+          class = "btn-icon-round"
+        ),
+
+        actionButton(
+          "notifications",
+          label = "🔔",
+          class = "btn-icon-round"
+        ),
+
+        tags$div(
+          class = "header-profile",
+
+          tags$div(
+            class = "header-profile-avatar",
+            "G3"
+          ),
+
+          tags$div(
+            class = "header-profile-text",
+
+            tags$span(
+              class = "header-profile-name",
+              "Group 3"
+            ),
+
+            tags$span(
+              class = "header-profile-role",
+              "DSA8045 Applied Anlytics"
+            )
+          )
+        )
+      )
+    )
+  ),  # ← IMPORTANT COMMA HERE
+
   # ── Sidebar ─────────────────────────────────────────────
   dashboardSidebar(
-    width = 210,
-    sidebarMenu(id = "tabs",
-      menuItem("🏠  Home",           tabName = "overview"),
-      menuItem("🎛  Audio Explorer", tabName = "audio"),
-      menuItem("⭐  Popularity",     tabName = "popularity"),
-      menuItem("🔍  What's Missing", tabName = "missing"),
-      menuItem("📊  Correlations",   tabName = "heatmap"),
-      menuItem("💡  Conclusions",    tabName = "conclusions")
+    width = 230,
+
+    sidebarMenu(
+      id = "tabs",
+
+      tags$div(
+        class = "sidebar-section-label",
+        "STUDIO"
+      ),
+
+      menuItem(
+        "🏠 Home",
+        tabName = "overview"
+      ),
+
+      menuItem(
+        "🎛 Audio Explorer",
+        tabName = "audio"
+      ),
+
+      menuItem(
+        "⭐ Popularity",
+        tabName = "popularity"
+      ),
+
+      menuItem(
+        "🔍 What's Missing",
+        tabName = "missing"
+      ),
+
+      menuItem(
+        "📊 Correlations",
+        tabName = "heatmap"
+      ),
+
+      tags$div(
+        class = "sidebar-section-label",
+        "GENERAL"
+      ),
+
+      menuItem(
+        "💡 Conclusions",
+        tabName = "conclusions"
+      )
     ),
-    tags$hr(),
-    tags$div(style = "padding:0 14px;",
-      tags$p(style = "color:#666;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;",
-             "Dataset"),
-      tags$p(style = "color:#AAA;font-size:11px;line-height:1.6;",
-             "700 tracks · 114 genres · 20 variables")
+
+    tags$div(
+      class = "sidebar-promo",
+
+      tags$div(
+        class = "sidebar-promo-title",
+        "Dataset"
+      ),
+
+      tags$div(
+        class = "sidebar-promo-sub",
+        "700 tracks · 114 genres · 20 variables"
+      )
     )
   ),
 
   # ── Body ────────────────────────────────────────────────
   dashboardBody(
+
     tags$head(
-      tags$style(id = "dyn_css", HTML(css_dark)),
-      tags$script(HTML(theme_js))
+
+      tags$link(
+        id = "theme-css",
+        rel = "stylesheet",
+        type = "text/css",
+        href = "dark.css"
+      ),
+
+      tags$script(src = "theme.js")
     ),
+
     tabItems(
       overview_tab_ui,
       audio_tab_ui,

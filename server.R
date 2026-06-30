@@ -11,7 +11,7 @@ server <- function(input, output, session) {
     new_dark <- !dark_mode()
     dark_mode(new_dark)
     updateActionButton(session, "toggle_mode",
-                       label = if (new_dark) "☀ Light Mode" else "🌙 Dark Mode")
+                       label = if (new_dark) "☀" else "🌙")
     session$sendCustomMessage("switch_theme", new_dark)
   })
 
