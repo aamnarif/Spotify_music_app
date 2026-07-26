@@ -1,4 +1,4 @@
-﻿# Group_3_Applied_Analytics
+# Group_3_Applied_Analytics
 
 # Solace — Spotify Music Analytics Dashboard
 
@@ -205,4 +205,3 @@ Group_3_Applied_Analytics/
 │       └── statistics.R
 │
 └── www/
-    └── styles.css
