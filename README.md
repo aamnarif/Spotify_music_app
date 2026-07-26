@@ -1,6 +1,6 @@
-# Group_3_Applied_Analytics
+# Applied Analytics
 
-# Solace — Spotify Music Analytics Dashboard
+# Solace (Spotify Music Analytics Dashboard)
 
 Solace is an interactive music analytics dashboard developed using R Shiny. The application transforms Spotify track data into an accessible visual experience for exploring music trends, audio characteristics, genre patterns, popularity, playlists, and statistical relationships.
 
